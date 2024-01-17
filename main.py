@@ -71,7 +71,7 @@ def get_openai_response(prompt: str, text: str) -> str:
         print(f"Erreur lors de la requête à l'API OpenAI : {e}")
         return "Je n'ai pas compris"
 
-def text_to_speech(text: str):
+def text_to_speech(text: str, lang: str ='fr'):
     # Initialize the text-to-speech engine
     engine = pyttsx3.init()
 
@@ -79,8 +79,7 @@ def text_to_speech(text: str):
     voices = engine.getProperty('voices')
 
     # Use the system voice (you can change the index to select a different voice)
-    engine.setProperty('voice', voices[0].id)
-
+    engine.setProperty('voice', lang)
     # Set the rate of speech (optional)
     rate = engine.getProperty('rate')
     engine.setProperty('rate', rate - 50)  # You can adjust the rate as needed
@@ -113,7 +112,7 @@ def translate_voice_into_text(langue: str ='fr-FR'):
             # response = get_openai_response(PROMPT, transcription)
             response = REPONSE
             print("Réponse : " + response)
-            text_to_speech(response)
+            text_to_speech(response, langue.split("-")[0])
         except sr.UnknownValueError:
             print("Impossible de comprendre l'audio")
         except sr.RequestError as e:
