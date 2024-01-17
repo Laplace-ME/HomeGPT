@@ -1,1 +1,2 @@
 SpeechRecognition==3.10.1
+openai==0.27.8
